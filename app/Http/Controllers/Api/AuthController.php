@@ -11,7 +11,7 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function register (Request $request): \Illuminate\Http\JsonResponse
+    public function register(Request $request): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -31,7 +31,7 @@ class AuthController extends Controller
         return response()->json(['token' => $user->createToken($request->email)->plainTextToken]);
     }
 
-    public function login (Request $request): \Illuminate\Http\JsonResponse
+    public function login(Request $request): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
