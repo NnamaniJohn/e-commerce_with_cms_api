@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CartController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -50,4 +51,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/products', function (Request $request) {
         return \App\Models\Product::all();
     });
+
+
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::post('/cart/{product}', [CartController::class, 'store']);
+    Route::patch('/cart/{product}', [CartController::class, 'update']);
+    Route::delete('/cart/{product}', [CartController::class, 'destroy']);
+    Route::delete('/cart', [CartController::class, 'clear']);
 });
