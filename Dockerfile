@@ -30,7 +30,10 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get install -y supervisor
 
 #install node
+RUN curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh
+RUN bash nodesource_setup.sh
 RUN apt-get install -y nodejs
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
