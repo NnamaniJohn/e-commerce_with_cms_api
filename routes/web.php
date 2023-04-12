@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -40,6 +41,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
     Route::patch('/products/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+    Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('order.show');
+    Route::post('/orders/{order}/complete', [OrderController::class, 'complete'])->name('order.complete');
+    Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('order.cancel');
 });
 
 require __DIR__.'/auth.php';

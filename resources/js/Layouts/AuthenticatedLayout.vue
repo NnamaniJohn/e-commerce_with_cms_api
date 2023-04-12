@@ -35,6 +35,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('users')" :active="route().current('users')">
                                     Users
                                 </NavLink>
+                                <NavLink :href="route('order.index')" :active="route().current('order.index')">
+                                    Orders
+                                </NavLink>
                             </div>
                             <div class="hidden sm:flex sm:items-center sm:ml-6">
                                 <!-- Settings Dropdown -->

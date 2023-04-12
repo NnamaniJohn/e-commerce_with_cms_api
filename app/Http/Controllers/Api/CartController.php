@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use function PHPUnit\Framework\isEmpty;
 
 class CartController extends Controller
 {
@@ -90,5 +93,31 @@ class CartController extends Controller
         $cart = Cart::where('user_id', $request->user()->id)->delete();
 
         return response()->json(['message' => 'Cart cleared'], 200);
+    }
+
+    public function checkout(Request $request)
+    {
+        $cartitems = $request->user()->cart()->get();
+        Log::debug($cartitems);
+        if (count($cartitems) == 0) {
+            return response()->json(['error'=> 'Cart is empty'], 422);
+        }
+
+        $order = Order::create([
+            'user_id' => $request->user()->id,
+            'status' => 'pending',
+        ]);
+
+        foreach ($cartitems as $item) {
+            OrderItem::create([
+               'order_id' => $order->id,
+                'product_id' => $item->product_id,
+                'quantity' => $item->quantity,
+            ]);
+        }
+
+        Cart::where('user_id', $request->user()->id)->delete();
+
+        return response()->json(['message' => 'Checkout successful'], 200);
     }
 }

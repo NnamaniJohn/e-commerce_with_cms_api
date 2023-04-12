@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\OrderController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -57,4 +58,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/cart', [CartController::class, 'store']);
     Route::delete('/cart/{id}', [CartController::class, 'destroy']);
     Route::delete('/cart', [CartController::class, 'clear']);
+    Route::post('/cart/checkout', [CartController::class, 'checkout']);
+
+    Route::get('/orders', [OrderController::class, 'index']);
+//    Route::get('/orders/{order}', [OrderController::class, 'show']);
+    Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel']);
 });
