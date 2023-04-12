@@ -29,6 +29,8 @@ RUN apt-get update && apt-get install -y \
 # Install supervisor
 RUN apt-get install -y supervisor
 
+#install node
+RUN apt-get install -y nodejs
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
