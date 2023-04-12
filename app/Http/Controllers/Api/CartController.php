@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -29,21 +30,21 @@ class CartController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Product $product)
+    public function store(Request $request)
     {
-        Log::debug("store");
         $validator = Validator::make($request->all(), [
+            'product_id' => 'required|integer',
             'quantity' => 'required|integer',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors'=>$validator->errors()], 422);
         }
 
-        $product->create([
-            'user_id' => $request->user()->id,
-            'product_id' => $product->id,
-            'quantity' => $request->quantity,
-        ]);
+        Cart::updateOrCreate(
+            ['user_id' => $request->user()->id,
+                'product_id' => $request->product_id,],
+            ['quantity' => $request->quantity]
+        );
 
         return response()->json(['message' => 'Product added'], 200);
     }
@@ -67,7 +68,7 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         //
     }
@@ -75,13 +76,19 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        $cart = Cart::where('user_id', $request->user()->id)
+            ->where('product_id', $id)->first();
+        $cart->delete();
+
+        return response()->json(['message' => 'Product removed'], 200);
     }
 
-    public function clear(string $id)
+    public function clear(Request $request)
     {
-        //
+        $cart = Cart::where('user_id', $request->user()->id)->delete();
+
+        return response()->json(['message' => 'Cart cleared'], 200);
     }
 }
