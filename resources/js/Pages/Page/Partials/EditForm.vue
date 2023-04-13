@@ -67,7 +67,7 @@ const form = useForm({
                     rows="15"
                     required
                     autocomplete="content"
-                ></textarea>
+                >{{form.cnt}}</textarea>
 
                 <InputError class="mt-2" :message="form.errors.cnt" />
             </div>

@@ -35,10 +35,10 @@ defineProps({
                             <table class="w-full table-auto text-sm text-left">
                                 <thead class="bg-gray-50 text-gray-600 font-medium border-b">
                                 <tr>
-                                    <th class="py-3 px-6">Username</th>
-                                    <th class="py-3 px-6">Email</th>
-                                    <th class="py-3 px-6">Position</th>
-                                    <th class="py-3 px-6"></th>
+                                    <th class="py-3 px-6">Name</th>
+                                    <th class="py-3 px-6">Price</th>
+                                    <th class="py-3 px-6">Description</th>
+                                    <th class="py-3 px-6 text-right">Actions</th>
 
                                 </tr>
                                 </thead>

@@ -61,7 +61,11 @@ class PageController extends Controller
     public function edit(Page $page)
     {
         return Inertia::render('Page/Edit', [
-            'page' => $page,
+            'page' => [
+                'title' => $page->title,
+                'description' => $page->description,
+                'content' => $page->content,
+                ],
         ]);
     }
 

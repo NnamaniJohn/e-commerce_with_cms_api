@@ -53,5 +53,11 @@ class DatabaseSeeder extends Seeder
             "price" => 954,
             "description"=> "Now you can see!"
         ]);
+
+        $this->call([
+            UserSeeder::class,
+            ProductSeeder::class,
+            PageSeeder::class,
+        ]);
     }
 }
