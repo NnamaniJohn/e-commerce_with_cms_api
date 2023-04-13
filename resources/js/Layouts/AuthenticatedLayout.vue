@@ -83,7 +83,7 @@ const showingNavigationDropdown = ref(false);
                                                 type="button"
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {{ $page.props.auth.user.name }}
+                                                Pages
 
                                                 <svg
                                                     class="ml-2 -mr-0.5 h-4 w-4"
@@ -102,10 +102,13 @@ const showingNavigationDropdown = ref(false);
                                         </template>
 
                                         <template #content>
-                                            <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
-                                            <DropdownLink :href="route('logout')" method="post" as="button">
-                                                Log Out
+                                            <DropdownLink :href="route('page.index')"> All Pages </DropdownLink>
+                                            <DropdownLink :href="route('page.create')">
+                                                Create Page
                                             </DropdownLink>
+<!--                                            <DropdownLink :href="route('page.create')">-->
+<!--                                                Page Archieve-->
+<!--                                            </DropdownLink>-->
                                         </template>
                                     </Dropdown>
                                 </div>

@@ -5,10 +5,16 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
+const props = defineProps({
+    page: {
+        type: Object,
+    },
+});
+
 const form = useForm({
-    name: '',
-    price: '',
-    description: ''
+    title: props.page?.title,
+    cnt: props.page?.content,
+    description: props.page?.description
 });
 </script>
 
@@ -18,10 +24,7 @@ const form = useForm({
             <slot name="header" />
         </header>
 
-        <form @submit.prevent="form.post(route('product.store'), {
-              preserveScroll: true,
-              onSuccess: () => form.reset(),
-            })" class="mt-6 space-y-6">
+        <form @submit.prevent="form.patch(route('page.update', page.id))" class="mt-6 space-y-6">
             <div>
                 <InputLabel for="name" value="Name" />
 
@@ -29,28 +32,13 @@ const form = useForm({
                     id="name"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.name"
+                    v-model="form.title"
                     required
                     autofocus
                     autocomplete="name"
                 />
 
-                <InputError class="mt-2" :message="form.errors.name" />
-            </div>
-
-            <div>
-                <InputLabel for="price" value="Price" />
-
-                <TextInput
-                    id="price"
-                    type="number"
-                    class="mt-1 block w-full"
-                    v-model="form.price"
-                    required
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.price" />
+                <InputError class="mt-2" :message="form.errors.title" />
             </div>
 
             <div>
@@ -68,6 +56,22 @@ const form = useForm({
 
                 <InputError class="mt-2" :message="form.errors.description" />
             </div>
+
+            <div>
+                <InputLabel for="content" value="Content" />
+
+                <textarea
+                    id="content"
+                    class="mt-1 block w-full"
+                    v-model="form.cnt"
+                    rows="15"
+                    required
+                    autocomplete="content"
+                ></textarea>
+
+                <InputError class="mt-2" :message="form.errors.cnt" />
+            </div>
+
 
             <div class="flex items-center gap-4">
                 <PrimaryButton :disabled="form.processing">Save</PrimaryButton>

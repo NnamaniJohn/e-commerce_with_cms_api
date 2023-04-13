@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -46,6 +47,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('order.show');
     Route::post('/orders/{order}/complete', [OrderController::class, 'complete'])->name('order.complete');
     Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('order.cancel');
+
+    Route::get('/pages', [PageController::class, 'index'])->name('page.index');
+    Route::get('/pages/create', [PageController::class, 'create'])->name('page.create');
+    Route::post('/pages', [PageController::class, 'store'])->name('page.store');
+    Route::get('/pages/{page}', [PageController::class, 'show'])->name('page.show');
+    Route::get('/pages/{page}/edit', [PageController::class, 'edit'])->name('page.edit');
+    Route::patch('/pages/{page}', [PageController::class, 'update'])->name('page.update');
+    Route::delete('/pages/{page}', [PageController::class, 'destroy'])->name('page.destroy');
 });
 
 require __DIR__.'/auth.php';
