@@ -10,6 +10,8 @@ class Page extends SluggableModel
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected $hidden = [
         'content',
     ];

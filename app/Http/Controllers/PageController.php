@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -14,6 +15,7 @@ class PageController extends Controller
      */
     public function index()
     {
+        Log::debug(Page::all());
         return Inertia::render('Page/Index', [
             'pages' => Page::all()
         ]);
@@ -95,6 +97,22 @@ class PageController extends Controller
     public function destroy(Page $page)
     {
         $page->delete();
+        return Redirect::route('page.index');
+    }
+
+    public function archive(Page $page)
+    {
+        $page->update([
+            'archived' => true
+        ]);
+        return Redirect::route('page.index');
+    }
+
+    public function restore(Page $page)
+    {
+        $page->update([
+            'archived' => false
+        ]);
         return Redirect::route('page.index');
     }
 }

@@ -37,7 +37,8 @@ defineProps({
                                 <tr>
                                     <th class="py-3 px-6">Title</th>
                                     <th class="py-3 px-6">Description</th>
-                                    <th class="py-3 px-6"></th>
+                                    <th class="py-3 px-6">Status</th>
+                                    <th class="py-3 px-6 text-right">Actions</th>
 
                                 </tr>
                                 </thead>
@@ -45,9 +46,19 @@ defineProps({
                                     <tr v-for="page in pages" :key="page.id">
                                         <td class="px-6 py-4 whitespace-nowrap">{{ page.title }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ page.description }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span v-if="!page.archived">Active</span>
+                                            <span v-else>Archived</span>
+                                        </td>
                                         <td class="text-right px-6 whitespace-nowrap">
                                             <Link :href="route('page.edit', page.id)" class="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg">
                                                 Edit
+                                            </Link>
+                                            <Link v-if="!page.archived" :href="route('page.archive', page.id)" method="post" class="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg">
+                                                Archive
+                                            </Link>
+                                            <Link v-else :href="route('page.restore', page.id)" method="post" class="py-2 px-3 font-medium text-indigo-600 hover:text-indigo-500 duration-150 hover:bg-gray-50 rounded-lg">
+                                                Restore
                                             </Link>
                                             <Link :href="route('page.destroy', page.id)" method="delete"  class="py-2 leading-none px-3 font-medium text-red-600 hover:text-red-500 duration-150 hover:bg-gray-50 rounded-lg">
                                                 Delete

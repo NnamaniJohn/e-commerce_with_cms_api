@@ -15,7 +15,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        return Page::all();
+        return Page::where('archived', false)->get();
     }
 
     /**

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->text('content');
+            $table->boolean('archived')->default(false);
             $table->timestamps();
             $table->index('slug');
         });
