@@ -136,7 +136,7 @@ watch(showModal, async (newValue, oldValue) => {
                     <button @click="crop" class="w-full mt-2 p-2.5 flex-1 text-white bg-indigo-600 rounded-md outline-none ring-offset-2 ring-indigo-600 focus:ring-2">
                     Save
                     </button>
-                    <button class="w-full mt-2 p-2.5 flex-1 text-gray-800 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2">
+                    <button @click="showModal = fasle" class="w-full mt-2 p-2.5 flex-1 text-gray-800 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2">
                     Cancel
                     </button>
                 </div>
