@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Products" />
+    <Head title="Orders" />
 
     <AuthenticatedLayout>
         <template #header>

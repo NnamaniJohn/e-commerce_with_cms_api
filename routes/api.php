@@ -68,4 +68,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/pages', [PageController::class, 'index']);
     Route::get('/pages/{page:slug}', [PageController::class, 'show']);
+
+    Route::get('/banners', function (Request $request) {
+        return \App\Models\Banner::where('archived', false)->get();
+    });
 });

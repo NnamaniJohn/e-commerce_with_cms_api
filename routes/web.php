@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
@@ -54,12 +55,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/pages', [PageController::class, 'index'])->name('page.index');
     Route::get('/pages/create', [PageController::class, 'create'])->name('page.create');
     Route::post('/pages', [PageController::class, 'store'])->name('page.store');
-    Route::get('/pages/{page}', [PageController::class, 'show'])->name('page.show');
+//    Route::get('/pages/{page}', [PageController::class, 'show'])->name('page.show');
     Route::get('/pages/{page}/edit', [PageController::class, 'edit'])->name('page.edit');
     Route::patch('/pages/{page}', [PageController::class, 'update'])->name('page.update');
     Route::delete('/pages/{page}', [PageController::class, 'destroy'])->name('page.destroy');
     Route::post('/pages/{page}/archive', [PageController::class, 'archive'])->name('page.archive');
-    Route::post('/pages/{page}/restore', [PageController::class, 'restore'])->name('page.restore');;
+    Route::post('/pages/{page}/restore', [PageController::class, 'restore'])->name('page.restore');
+
+    Route::get('/banners', [BannerController::class, 'index'])->name('banner.index');
+    Route::get('/banners/create', [BannerController::class, 'create'])->name('banner.create');
+    Route::post('/banners', [BannerController::class, 'store'])->name('banner.store');
+    Route::delete('/banners/{banner}', [BannerController::class, 'destroy'])->name('banner.destroy');
+    Route::post('/banners/{banner}/archive', [BannerController::class, 'archive'])->name('banner.archive');
+    Route::post('/banners/{banner}/restore', [BannerController::class, 'restore'])->name('banner.restore');
 });
 
 require __DIR__.'/auth.php';

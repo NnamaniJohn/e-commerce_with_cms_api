@@ -15,7 +15,6 @@ class PageController extends Controller
      */
     public function index()
     {
-        Log::debug(Page::all());
         return Inertia::render('Page/Index', [
             'pages' => Page::all()
         ]);

@@ -1,20 +1,14 @@
 <template>
     <div class="widget-author">
         <div class="author-heading">
-            <div class="cover-img">
-                <a @click="getFileInput('cover')">
-                    <img :src="user.coverImage" id="author_cover" alt="cover">
-                </a>
-            </div>
-            <div class="profile-img">
-                <a @click="getFileInput('profile')">
-                    <img :src="user.image" id="author_profile" alt="author">
+            <div class="banner-img">
+                <a @click="getFileInput">
+                    <img :src="banner.image" id="banner" alt="banner">
                 </a>
             </div>
             <input type="file" name="upload_image" class="image" id="upload_image" accept="image/gif, image/png, image/jpeg" @change="uploadImageChange" hidden />
             <div class="profile-name">
-                <h2 class="card-title">{{ user.name }}</h2>
-                <h6 class="text-muted">{{ '@'+user.username }}</h6>
+                <h2 class="card-title">{{ banner.title }}</h2>
             </div>
         </div>
 
@@ -46,31 +40,28 @@
 <script>
 export default {
     name: "ProfileImageSetting",
-    props: ['user'],
+    props: ['banner'],
 
     data() {
         return {
             image: null,
             cropper: null,
             upload_modal: null,
-            image_for: '',
-            p_img: null,
-            c_img: null,
+            banner_img: null,
             is_processing: false,
         }
     },
 
     mounted() {
         this.image = document.getElementById('sample_image');
-        this.p_img = document.getElementById('author_profile');
-        this.c_img = document.getElementById('author_cover');
+        this.banner_img = document.getElementById('banner');
         this.upload_modal = $('#upload_modal');
 
         this.upload_modal.on('shown.bs.modal', () => {
-            var aspectRatio = 1
-            if (this.image_for == 'cover') {
-                aspectRatio = 3
-            }
+            var aspectRatio = 3
+            // if (this.image_for == 'cover') {
+            //     aspectRatio = 3
+            // }
 
             this.cropper = new Cropper(this.image, {
                 aspectRatio: aspectRatio,
@@ -83,10 +74,10 @@ export default {
 
         $('#crop').click(() => {
             this.is_processing = true;
-            var height = 400, width = 400;
-            if (this.image_for == 'cover') {
-                width = 1200
-            }
+            var height = 400, width = 1200;
+            // if (this.image_for == 'cover') {
+            //     width = 1200
+            // }
 
             var canvas = this.cropper.getCroppedCanvas({
                 width:width,
@@ -120,7 +111,7 @@ export default {
         getFileInput(img_for) {
             // console.log(this.image_for);
             // console.log(img_for)
-            this.image_for = img_for;
+            // this.image_for = img_for;
             // console.log(this.image_for);
             $("#upload_image").click();
         },
