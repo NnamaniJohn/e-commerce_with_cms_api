@@ -29,28 +29,28 @@ jobs:
       
     # Setup Nodejs
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         
     # Setup yarn
-    - name: Install yarn
-      run: npm install -g yarn
+    # - name: Install yarn
+    #   run: npm install -g yarn
       
     # Cache dependencies for faster build time in future
-    - name: Cache dependencies
-      uses: actions/cache@v2
-      with:
-        path: |
-          ./node_modules
-          ./.yarn
-        key: ${{ runner.os }}-modules-${{ hashFiles('./yarn.lock') }}
+    # - name: Cache dependencies
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: |
+    #       ./node_modules
+    #       ./.yarn
+    #     key: ${{ runner.os }}-modules-${{ hashFiles('./yarn.lock') }}
         
     # Install dependencies for build process
     - name: Install build dependencies
       run: |
-        yarn install --prefer-offline --pure-lockfile --cache-folder .yarn --modules-folder node_modules
+        npm ci
 
     # Test 
     # - name: Test 
@@ -60,7 +60,7 @@ jobs:
     # Build application into BUILD directory
     - name: Build application
       run: |
-        yarn build
+        npm run build --if-present
 
         mkdir BUILD
         cp -r public BUILD/public
