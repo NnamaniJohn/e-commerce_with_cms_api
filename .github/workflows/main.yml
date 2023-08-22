@@ -65,8 +65,8 @@ jobs:
         mkdir BUILD
         cp -r public BUILD/public
         cp -r package.json BUILD/package.json
-        cp -r yarn.lock BUILD/yarn.lock
-        mv .next BUILD/.next
+        cp -r package-lock.json BUILD/package-lock.json
+        # mv .next BUILD/.next
 
     # Synchronize & push BUILD directory to deployment branch
     - name: Configure Git informations
